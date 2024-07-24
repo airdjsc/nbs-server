@@ -1,0 +1,41 @@
+# fly.toml app configuration file generated for hbs-server on 2024-03-08T14:26:08+07:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'hbs-server'
+primary_region = 'sin'
+console_command = 'php /var/www/html/artisan tinker'
+
+[build]
+  [build.args]
+    NODE_VERSION = '18'
+    PHP_VERSION = '8.3'
+
+[env]
+  APP_ENV = 'production'
+  LOG_CHANNEL = 'stderr'
+  LOG_LEVEL = 'info'
+  LOG_STDERR_FORMATTER = 'Monolog\Formatter\JsonFormatter'
+  SESSION_DRIVER = 'cookie'
+  SESSION_SECURE_COOKIE = 'true'
+  DB_CONNECTION='pgsql'
+  DB_HOST='ep-wispy-dream-a1esq3z4.ap-southeast-1.aws.neon.tech'
+  DB_PORT='5432'
+  DB_DATABASE='doc-app'
+  DB_USERNAME='airdjsc'
+  DB_PASSWORD='KOX6aFbZeYk2'
+
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
